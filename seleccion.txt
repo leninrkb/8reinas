@@ -1,0 +1,13 @@
+aptitud global: 64
+total: 6
+sus aptitudes: 10
+sus aptitudes: 10
+sus aptitudes: 10
+sus aptitudes: 10
+sus aptitudes: 12
+sus aptitudes: 12
+
+probables selecionados: 1
+sus aptitudes: 10
+
+/--------------/
