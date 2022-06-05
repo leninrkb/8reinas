@@ -3,11 +3,11 @@ import java.util.Arrays;
 public class Cromosoma {
 
     int[] individuo;
-    Integer aptitud;
+    Integer aptitud = 28;
 
     public Cromosoma(int[] individuo1, int aptitud1) {
         this.individuo = individuo1;
-        this.aptitud = aptitud1;
+        this.aptitud = this.aptitud - aptitud1;
     }
 
     public void print1() {

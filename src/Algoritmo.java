@@ -42,17 +42,28 @@ public class Algoritmo {
                             0, 1, 0, 0, 0, 0, 0, 0,
                             0, 0, 0, 0, 0, 0, 0, 1, };
 
-        int individuo2[] = { 0, 0, 0, 0, 1, 0, 0, 0,
+        int individuo2[] = { 0, 1, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 1, 0,
+                            1, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 1, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 1,
+                            0, 0, 0, 0, 0, 1, 0, 0,
+                            1, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 1, 0, 0, 0, 0, 0, };
+        
+        int individuo3[] = { 1, 0, 0, 0, 0, 0, 0, 0,
                             0, 0, 1, 0, 0, 0, 0, 0,
                             0, 0, 0, 0, 1, 0, 0, 0,
                             0, 0, 0, 0, 0, 0, 1, 0,
                             0, 0, 0, 1, 0, 0, 0, 0,
                             0, 0, 0, 0, 0, 1, 0, 0,
-                            1, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 1, 0, 0, 0, };
+                            0, 0, 0, 0, 0, 0, 0, 1,
+                            0, 1, 0, 0, 0, 0, 0, 0, };
 
         poblacion.add(individuo1);
         poblacion.add(individuo2);
+        poblacion.add(individuo3);
+
 
         return poblacion;
     }
@@ -67,60 +78,26 @@ public class Algoritmo {
         return ataques;
     }
 
-    public List<Cromosoma> seleccion(List<Cromosoma> cromosomas) throws FileNotFoundException {
+    public List<Cromosoma> seleccion(List<Cromosoma> cromosomas) {
         if (cromosomas.size() <= 2) {
             return cromosomas;
         } else {
             
-            List<Cromosoma> ordenados = cromosomas;
-            for (int i = 0; i < ordenados.size(); i++) {
-                if ((i + 1) >= ordenados.size())
-                    break;
-                Cromosoma actual=ordenados.get(i), siguiente=ordenados.get(i + 1);
-                if ( actual.aptitud > siguiente.aptitud) {
-                    ordenados.set(i, siguiente);
-                    ordenados.set(i + 1, actual);
-                    i--;
-                }
+            List<Cromosoma> mayores = new ArrayList<>();
+            List<Cromosoma> menores = new ArrayList<>();
 
+            int middle = (cromosomas.size() / 2);
+            int middle2 = cromosomas.get(middle).aptitud;
+            for (int i = 0; i < cromosomas.size(); i++) {
+               if(cromosomas.get(i).aptitud > middle2){
+                     mayores.add(cromosomas.get(i));
+               }else{
+                    menores.add(cromosomas.get(i));
+               }
             }
 
-            int aptitudGlobal = 0;
-            for (Cromosoma cromosoma : ordenados) {
-                aptitudGlobal += cromosoma.aptitud;
-            }
-
-            List<Cromosoma> probables = new ArrayList<>();
-            HashMap<Integer, Cromosoma> probabilidades = new HashMap<>();
-            int cant = (ordenados.size()/2) + 1;
-            for (int i = 0; i < cant; i++) {
-                if(!probabilidades.containsKey(ordenados.get(i).aptitud)){
-                    probabilidades.put(ordenados.get(i).aptitud, ordenados.get(i));
-                    probables.add(ordenados.get(i));
-                } 
-                
-            }
-
-            os = new FileOutputStream("seleccion.txt");
-            ps = new PrintStream(os);
-
-            ps.println("aptitud global: " + aptitudGlobal);
-            ps.println("total: " + ordenados.size());
-            String general="";
-            for (Cromosoma cromosoma : ordenados) {
-                general += ("sus aptitudes: " + cromosoma.aptitud + "\n");
-            }
-            ps.println(general);
-            
-            general ="";
-            ps.println("probables selecionados: " + probables.size());
-            for (Cromosoma cromosoma : probables) {
-                general +=("sus aptitudes: " + cromosoma.aptitud + "\n");
-            }
-            ps.println(general);
-            ps.println("/--------------/");
-            
-            return probables;
+            System.out.println("mayor -----> "+mayores.size());
+            return mayores;
         }
     }
 

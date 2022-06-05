@@ -6,8 +6,6 @@ import java.util.Random;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        FileOutputStream  os = new FileOutputStream("iteraciones.txt");
-        PrintStream ps = new PrintStream(os);
 
 
         Algoritmo a = new Algoritmo();
@@ -16,28 +14,31 @@ public class App {
         List<Cromosoma> seleccionados = new ArrayList<>();
         List<Cromosoma> nuevos = new ArrayList<>();
 
+        //cromosomas padres
         for (int[] individuo : poblacionInicial) {
             cromosomas.add(new Cromosoma(individuo, a.funcionDeAptitud(individuo, 8)));
         }
-        
 
-        
-        do {
-            seleccionados = a.seleccion(cromosomas);
-            nuevos = a.cruzamiento(seleccionados);
-            cromosomas = a.mutacion(nuevos);
-        } while (!a.terminacion(cromosomas));
 
-        // for (int index = 0; index < 20000; index++) {
+        //Algoritmo genetico
+        // do {
         //     seleccionados = a.seleccion(cromosomas);
         //     nuevos = a.cruzamiento(seleccionados);
         //     cromosomas = a.mutacion(nuevos);
-        // }
+        // } while (!a.terminacion(cromosomas));
+
+        for (int i = 0; i < 10; i++) {
+            seleccionados = a.seleccion(cromosomas);
+            nuevos = a.cruzamiento(seleccionados);
+            cromosomas = a.mutacion(nuevos);
+        }
 
 
+        //System.out.println("cromosomas "+cromosomas.size());
+        //seleccionados = a.seleccion(cromosomas);    
         for (Cromosoma cromosoma : cromosomas) {
             cromosoma.print();
-            if(cromosoma.aptitud==0){
+            if(cromosoma.aptitud==24){
                 System.out.println("Solucion encontrada");
                 break;
             }
